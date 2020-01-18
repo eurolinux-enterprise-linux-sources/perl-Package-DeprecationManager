@@ -6,7 +6,7 @@
 
 Name:		perl-Package-DeprecationManager
 Version:	0.13
-Release:	6.1%{?dist}
+Release:	7%{?dist}
 Summary:	Manage deprecation warnings for your distribution
 Group:		Development/Libraries
 License:	Artistic 2.0
@@ -82,6 +82,9 @@ rm -rf %{buildroot}
 %{_mandir}/man3/Package::DeprecationManager.3pm*
 
 %changelog
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 0.13-7
+- Mass rebuild 2013-12-27
+
 * Wed Aug 15 2012 Daniel Mach <dmach@redhat.com> - 0.13-6.1
 - Rebuild for perl 5.16
 

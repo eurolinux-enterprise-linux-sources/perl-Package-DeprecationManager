@@ -1,0 +1,60 @@
+--- t/basic.t
++++ t/basic.t
+@@ -2,12 +2,14 @@ use strict;
+ use warnings;
+ 
+ use Test::Fatal;
+-use Test::More 0.88;
++use Test::More;
+ 
+ use Test::Requires {
+     'Test::Output' => '0.16',
+ };
+ 
++plan tests => 25;
++
+ {
+     like(
+         exception {
+@@ -218,5 +220,3 @@ use Test::Requires {
+         q{},
+         'no deprecation warning for second call to My::Package1::foo()';
+ }
+-
+-done_testing();
+--- t/compile.t
++++ t/compile.t
+@@ -1,9 +1,7 @@
+ use strict;
+ use warnings;
+ 
+-use Test::More 0.88;
++use Test::More tests => 1;
+ 
+ eval "require Package::DeprecationManager";
+ ok( ! $@, 'no errors loading require Package::DeprecationManager' );
+-
+-done_testing();
+--- t/release-cpan-changes.t
++++ t/release-cpan-changes.t
+@@ -1,15 +1,11 @@
+ #!perl
+ 
++use Test::More;
++
+ BEGIN {
+-  unless ($ENV{RELEASE_TESTING}) {
+-    require Test::More;
+-    Test::More::plan(skip_all => 'these tests are for release candidate testing');
+-  }
++    plan skip_all => 'these tests are for release candidate testing' unless ($ENV{RELEASE_TESTING});
++    eval 'use Test::CPAN::Changes';
++    plan skip_all => 'Test::CPAN::Changes required for this test' if $@;
+ }
+ 
+-
+-use Test::More;
+-eval 'use Test::CPAN::Changes';
+-plan skip_all => 'Test::CPAN::Changes required for this test' if $@;
+ changes_ok();
+-done_testing();
